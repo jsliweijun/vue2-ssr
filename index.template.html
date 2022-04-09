@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <meta data-n-head="ssr" charset="utf-8" />
+        <meta data-n-head="ssr" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+        <!-- 在模版中使用动态数据显示，vue-ssr 支持方式，三个大括号显示html标签方式，2个大括号显示为字符串 -->
+        {{{meta}}}
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <!--vue-ssr-outlet-->
+    </body>
+</html>
