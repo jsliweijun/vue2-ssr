@@ -40,6 +40,7 @@ server.use('/dist', express.static('./dist'));
 const render = async (req, res) => {
     // 要进行创建 vue app 实例，处理成 string 返回给前端。
     try {
+        // 这个方法执行时，回去调用 entry-server.js , 传入一个 context 对象给函数。
         const html = await renderer.renderToString({
             title: 'vue-ssr',
             meta: ` <meta name="description" content="ssr">`,
