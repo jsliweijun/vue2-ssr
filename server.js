@@ -2,24 +2,25 @@ const fs = require('fs');
 // 在服务端使用 vue 实例，创建出模版
 const Vue = require('vue');
 const express = require('express'); //  结合服务端，将 vue-ssr 渲染的内容进行提供访问。
+const { createBundleRenderer } = require('vue-server-renderer');
 
-const renderer = require('vue-server-renderer').createRenderer({
-    template: fs.readFileSync('./index.template.html', 'utf-8') // 传入编码参数会将二进制数据 转化 字符串
+const serverBundle = require('./dist/vue-ssr-server-bundle.json');
+const clientManifest = require('./dist/vue-ssr-client-manifest.json');
+const template = fs.readFileSync('./index.template.html', 'utf-8'); // 传入编码参数会将二进制数据 转化 字符串
+
+const renderer = createBundleRenderer(serverBundle, {
+    template,
+    clientManifest
 });
 
 const server = express();
 
+server.use('/dist', express.static('./dist'));
+
 // vue-ssr 结合到 web 服务中。
 server.get('/', (req, res) => {
-    // 创建 vue实例
-    const app = new Vue({
-        template: `<div id="app"> <h1> {{message}}</h1>  </div>`,
-        data: { message: 'vue-ssr  使用模版' }
-    });
-
     // 渲染成字符串
     renderer.renderToString(
-        app,
         {
             title: 'vue-ssr',
             meta: `  <meta name="description" content="vue-ssr" />`

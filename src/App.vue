@@ -1,6 +1,10 @@
 <!--  根组件 -->
 <template>
-    <div id="app"></div>
+    <div id="app">
+        {{ message }}
+        <hr />
+        <button @click="onClick">点击</button>
+    </div>
 </template>
 
 <script>

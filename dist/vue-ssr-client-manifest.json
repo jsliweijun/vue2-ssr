@@ -1,11 +1,11 @@
 {
   "publicPath": "/dist/",
   "all": [
-    "app.29a8682015b60191a7f6.js",
-    "app.29a8682015b60191a7f6.js.map"
+    "app.890196f0989681a7beec.js",
+    "app.890196f0989681a7beec.js.map"
   ],
   "initial": [
-    "app.29a8682015b60191a7f6.js"
+    "app.890196f0989681a7beec.js"
   ],
   "async": [],
   "modules": {
