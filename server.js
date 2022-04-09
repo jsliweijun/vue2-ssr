@@ -37,33 +37,25 @@ if (isProd) {
 server.use('/dist', express.static('./dist'));
 
 // express 的请求处理回调函数
-const render = (req, res) => {
-    // 渲染成字符串
-    renderer.renderToString(
-        {
+const render = async (req, res) => {
+    // 要进行创建 vue app 实例，处理成 string 返回给前端。
+    try {
+        const html = await renderer.renderToString({
             title: 'vue-ssr',
-            meta: `  <meta name="description" content="vue-ssr" />`
-        },
-        (err, html) => {
-            console.log(html);
-            if (err) {
-                res.status('500').end('Internet err');
-            }
+            meta: ` <meta name="description" content="ssr">`,
+            url: req.url // url 给 router 使用
+        });
 
-            // 设置响应头
-            res.setHeader('Content-Type', 'text/html;charset=utf-8');
-
-            // 这里返回的是 html 片段，没有 html5的 meta 信息，会报乱码。
-            // res.end(html);
-
-            res.end(html);
-        }
-    );
+        res.end(html);
+    } catch (err) {
+        console.log(err);
+        res.status(500).end('Internel Server Error');
+    }
 };
 
 // vue-ssr 结合到 web 服务中。
 server.get(
-    '/',
+    '*',
     isProd
         ? render
         : async (req, res) => {

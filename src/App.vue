@@ -1,10 +1,12 @@
 <!--  根组件 -->
 <template>
     <div id="app">
-        <input type="text" v-model="message" />
-        {{ message }}
-        <hr />
-        <button @click="onClick">点击</button>
+        <router-view></router-view>
+        <div>
+            <router-link to="/">首页</router-link>
+            <router-link to="/topic">主题</router-link>
+            <router-link to="/about">关于</router-link>
+        </div>
     </div>
 </template>
 
